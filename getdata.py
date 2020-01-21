@@ -9,7 +9,7 @@ import pandas as pd
 import csv
 
 #datetime
-from datetime import datetime
+import datetime
 import datetime as dt
 
 #numpy
@@ -47,10 +47,12 @@ def create_ticker_list(number, url):
     return stock_list
 
 def get_historical_data(ticker):
-    temp = pdr.get_data_yahoo(symbols=ticker, start=datetime(2019, 1, 1), end=datetime.now())
+    startdate = datetime.datetime.now() - datetime.timedelta(days = 64)
+    temp = pdr.get_data_yahoo(symbols=ticker, start=startdate, end=datetime.datetime.now())
     save_historical_data(temp['Adj Close'], ticker)
 
 def save_historical_data(data, ticker):
+
     data.to_csv('/Users/akim0417/stock/csv/' + ticker + '.csv', header = False)
 
     #adding headers - revisit later
@@ -74,6 +76,6 @@ def data_to_array(ticker):
         prices[i] = float(prices[i])
 
     for j in range(0, len(dates)):
-        dates[j] = datetime.strptime(dates[j], '%Y-%m-%d')
+        dates[j] = datetime.datetime.strptime(dates[j], '%Y-%m-%d')
 
     return(dates, prices)
