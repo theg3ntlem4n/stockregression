@@ -4,6 +4,9 @@ from getdata import *
 #regression.py
 from regression import *
 
+#sendmessage.py
+from sendmessage import *
+
 #datetime
 import datetime
 
@@ -28,11 +31,18 @@ tomorrow = datetime.datetime.now() + datetime.timedelta(days = 1)
 
 print(tomorrow)
 
+order = {}
+
 for ticker in DJIA:
     get_historical_data(ticker)
     dates, prices = data_to_array(ticker)
 
-    simple_regression(dates, prices, ticker)
+    margin = simple_regression(dates, prices, ticker)
+
+    order[ticker] = margin
+
+most_profitable = sorted(order.items(), key=lambda x: x[1], reverse=True)
+print(most_profitable)
 
 
 

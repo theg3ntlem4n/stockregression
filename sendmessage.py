@@ -5,6 +5,8 @@ def sendmessage(ticker, prediction):
     password = "stockpredictor"
     btext = "7036758188@sms.myboostmobile.com"
 
+    ntext = "5105226389@txt.att.net"
+
     message = "The projected value of " + ticker + " stock tomorrow is " + str(prediction) + " dollars"
 
     server = smtplib.SMTP('smtp.gmail.com', 587)

@@ -62,10 +62,16 @@ def simple_regression(dates, prices, ticker):
 
         plt.show()'''
 
-    #print final values
+    #comparison if statement
+
     if prediction_value > prices[len(prices) - 1]:
-        print(ticker + ": " + prediction_value)
         sendmessage(ticker, prediction_value)
+
+    margin = (float(prediction_value / prices[len(prices) - 1]) * 100 - 100)
+    margin = round(margin, 2)
+
+    return margin
+
 
 
 def compute_line(coefficient, constant, x1):
