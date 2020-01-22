@@ -64,8 +64,7 @@ def simple_regression(dates, prices, ticker):
 
     #print final values
     if prediction_value > prices[len(prices) - 1]:
-        print(ticker)
-        print(prediction_value)
+        print(ticker + ": " + prediction_value)
         sendmessage(ticker, prediction_value)
 
 
