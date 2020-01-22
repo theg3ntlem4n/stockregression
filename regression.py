@@ -12,6 +12,10 @@ import statsmodels.api as sm
 import datetime
 from datetime import timezone
 
+#sendtext
+
+from sendmessage import *
+
 
 def simple_regression(dates, prices, ticker):
 
@@ -48,7 +52,7 @@ def simple_regression(dates, prices, ticker):
     prediction_value = compute_line(coefficient, constant, x2)
 
     #plot
-    if ticker == 'WMT':
+    '''if ticker == 'WMT':
         plt.scatter(x1, y)
         fig = plt.plot(x1, yhat, lw=4, c='orange', label = 'regression line')
         projection = plt.plot([tomorrow_utc], [prediction_value], marker='o', markersize=3, color="red")
@@ -56,12 +60,14 @@ def simple_regression(dates, prices, ticker):
         plt.ylabel('Prices', fontsize = 20)
         plt.xticks(rotation = 45)
 
-        plt.show()
+        plt.show()'''
 
     #print final values
     if prediction_value > prices[len(prices) - 1]:
         print(ticker)
         print(prediction_value)
+        sendmessage(ticker, prediction_value)
+
 
 def compute_line(coefficient, constant, x1):
     return(coefficient * x1 + constant)

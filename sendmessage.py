@@ -1,0 +1,14 @@
+import smtplib
+
+def sendmessage(ticker, prediction):
+    username = "stockpredictorpython@gmail.com"
+    password = "stockpredictor"
+    btext = "7036758188@sms.myboostmobile.com"
+
+    message = "The projected value of " + ticker + " stock tomorrow is " + str(prediction) + " dollars"
+
+    server = smtplib.SMTP('smtp.gmail.com', 587)
+    server.starttls()
+    server.login(username, password)
+    server.sendmail(username, btext, message)
+    server.quit()
