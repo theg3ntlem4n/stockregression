@@ -64,13 +64,13 @@ def simple_regression(dates, prices, ticker):
 
     #comparison if statement
 
-    if prediction_value > prices[len(prices) - 1]:
-        sendmessage(ticker, prediction_value)
+    #if prediction_value > prices[len(prices) - 1]:
+        #sendmessage(ticker, prediction_value)
 
     margin = (float(prediction_value / prices[len(prices) - 1]) * 100 - 100)
     margin = round(margin, 2)
 
-    return margin
+    return prediction_value
 
 
 

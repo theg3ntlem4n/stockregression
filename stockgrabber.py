@@ -7,6 +7,9 @@ from regression import *
 #sendmessage.py
 from sendmessage import *
 
+#timeseries.py
+from timeseries import *
+
 #datetime
 import datetime
 
@@ -33,18 +36,34 @@ print(tomorrow)
 
 order = {}
 
+'''ticker = 'AAPL'
+
+get_historical_data(ticker)
+dates, prices = data_to_array(ticker)
+linear_projection = simple_regression(dates, prices, ticker)
+machine_projection = start_process_machine(ticker)
+
+print(ticker, ": ", machine_projection, linear_projection)
+if machine_projection or linear_projection > prices[len(prices) - 1]:
+    print("Profitable")'''
+
+profit_list = []
+
 for ticker in DJIA:
     get_historical_data(ticker)
     dates, prices = data_to_array(ticker)
+    linear_projection = simple_regression(dates, prices, ticker)
+    machine_projection = start_process_machine(ticker)
 
-    margin = simple_regression(dates, prices, ticker)
+    print(ticker, ": ", machine_projection, linear_projection)
+    if machine_projection > prices[len(prices) - 1]:
+        margin = (float(machine_projection / prices[len(prices) - 1]) * 100 - 100)
+        margin = round(margin, 2)
+        print("Profitable: ", machine_projection, " greater than ", prices[len(prices) - 1], " by a margin of ", margin,
+              " percent.")
+        profit_list.append(ticker)
 
-    order[ticker] = margin
-
-most_profitable = sorted(order.items(), key=lambda x: x[1], reverse=True)
-print(most_profitable)
-
-
+print(profit_list)
 
 
 
