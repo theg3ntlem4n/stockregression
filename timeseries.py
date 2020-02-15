@@ -44,7 +44,7 @@ def start_process_machine(ticker):
 
     uni_data = uni_data.values
 
-    TRAIN_SPLIT = round(len(uni_data) * 9 / 10)
+    TRAIN_SPLIT = round(len(uni_data) * 8 / 10)
     tf.random.set_seed(13)
 
     uni_data_mean = uni_data[:TRAIN_SPLIT].mean()
@@ -56,7 +56,7 @@ def start_process_machine(ticker):
     uni_data = (uni_data - uni_data_mean) / uni_data_std
 
     #how many days are given after the train split
-    univariate_past_history = round(len(uni_data) * 1 / 10) - 1
+    univariate_past_history = round(len(uni_data) * 2 / 10) - 1
     univariate_future_target = 0
 
     x_train_uni, y_train_uni = univariate_data(uni_data, 0, TRAIN_SPLIT,
@@ -74,8 +74,8 @@ def start_process_machine(ticker):
     print(y_train_uni[0])'''
 
     #LSTM
-    BATCH_SIZE = 256
-    BUFFER_SIZE = 10000
+    BATCH_SIZE = 4
+    BUFFER_SIZE = 1000
 
     train_univariate = tf.data.Dataset.from_tensor_slices((x_train_uni, y_train_uni))
     train_univariate = train_univariate.cache().shuffle(BUFFER_SIZE).batch(BATCH_SIZE).repeat()
@@ -90,7 +90,7 @@ def start_process_machine(ticker):
 
     simple_lstm_model.compile(optimizer='adam', loss='mae')
 
-    EVALUATION_INTERVAL = 200
+    EVALUATION_INTERVAL = 300
     EPOCHS = 10
 
     simple_lstm_model.fit(train_univariate, epochs=EPOCHS,

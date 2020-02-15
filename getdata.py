@@ -48,7 +48,7 @@ def create_ticker_list(number, url):
 
 def get_historical_data(ticker):
     startdate = datetime.datetime.now() - datetime.timedelta(days = 100)
-    temp = pdr.get_data_yahoo(symbols=ticker, start=startdate, end=datetime.datetime.now())
+    temp = pdr.get_data_yahoo(symbols=ticker, start= startdate, end=datetime.datetime.now())
     save_historical_data(temp['Adj Close'], ticker)
 
 def save_historical_data(data, ticker):
