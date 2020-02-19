@@ -10,6 +10,9 @@ from sendmessage import *
 #timeseries.py
 from timeseries import *
 
+#timeseries2.py
+from timeseries2 import *
+
 #datetime
 import datetime
 
@@ -49,21 +52,13 @@ if machine_projection or linear_projection > prices[len(prices) - 1]:
 
 profit_list = []
 
-for ticker in DJIA:
-    get_historical_data(ticker)
-    dates, prices = data_to_array(ticker)
-    linear_projection = simple_regression(dates, prices, ticker)
-    machine_projection = start_process_machine(ticker)
+ticker = "AAPL"
 
-    print(ticker, ": ", machine_projection, linear_projection)
-    if machine_projection > prices[len(prices) - 1]:
-        margin = (float(machine_projection / prices[len(prices) - 1]) * 100 - 100)
-        margin = round(margin, 2)
-        print("Profitable: ", machine_projection, " greater than ", prices[len(prices) - 1], " by a margin of ", margin,
-              " percent.")
-        profit_list.append(ticker)
+run_model(ticker)
 
-print(profit_list)
+
+
+
 
 
 
